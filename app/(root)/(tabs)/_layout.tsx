@@ -1,7 +1,9 @@
+import { useUserSotre } from "@/store/userStore";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { Tabs } from "expo-router";
 
 export default function TabLayout() {
+  const isAdmin = useUserSotre((state) => state.isAdmin);
   return (
     <Tabs screenOptions={{ headerShown: false }}>
       <Tabs.Screen
@@ -22,6 +24,18 @@ export default function TabLayout() {
           ),
         }}
       />
+      {/* Create Property */}
+      {isAdmin && (
+        <Tabs.Screen
+          name="create"
+          options={{
+            title: "Create",
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="plus" color={color} size={size} />
+            ),
+          }}
+        />
+      )}
       <Tabs.Screen
         name="saved"
         options={{
